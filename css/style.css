@@ -17,7 +17,7 @@
 .wrapper {
     height: 100vh;
     background-color: var(--header-color);
-    overflow: hiden;
+    overflow: hidden;
 }
 
 /* **Header */
@@ -102,14 +102,51 @@
 }
 
 .icon-chat {
-    height: 40px;
+    height: 35px;
     aspect-ratio: 1;
     border-radius: 10px;
 }
 
 .input-group input{
     width: calc(100% - 50px);
+    font-size: 15px;
 }
+
+.chat-list {
+    overflow: auto;
+}
+
+.contact:hover {
+    background-color: var(--header-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.chat-avatar {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.chat-avatar img {
+    width: 100%;
+}
+
+.message-date {
+    font-size: 12px;
+    color: var(--icon-color);
+}
+
+.message.message-date {
+    color: #c7cecf;
+} {
+
+}
+
+/* ***Message chat */
 
 .chat-container {
     width: 70%;
