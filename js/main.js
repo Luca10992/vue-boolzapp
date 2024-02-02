@@ -158,8 +158,43 @@ const app = createApp ({
                     status: 'received'
                     }
                 ]}
-                ]
+            ],
+
+            searchText: '',
+            newMessage: {
+                date: '',
+                message: '',
+                status: 'sent'
+            },
+
+            newResponse: {
+                date: '',
+                message: 'Ciao',
+                status: 'received',
+            },
+        }
+    },
+
+    methods: {
+        sendMessage() {
+            const newMessage = { ...this.newMessage };
+            newMessage.date = this.currentTime();
+            this.contacts[this.userActive].messages.push(newMessage);
+
+            setTimeout(this.receiveResponse, 1000)
+        },
+
+        currentTime() {
+            const now = new Date();
+            return `${now.getHours()}:${now.getMinutes()}`;
+        },
+        
+        receiveResponse() {
+            const newResponse = { ...this.newResponse };
+            newResponse.date = this.currentTime();
+            this.contacts[this.userActive].messages.push(newResponse);
         }
     }
+    
 })
 .mount('#app');
