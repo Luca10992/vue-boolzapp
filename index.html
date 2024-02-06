@@ -77,21 +77,21 @@
                             <div class="d-flex justify-content-between p-2">
                                 <div><h4 class="fw-bold">Chat</h4></div>
                                 <div class="d-flex">
-                                    <span class="icon icon-chat"><i class="fa-solid fa-pen-to-square"></i></span>
+                                    <span class="icon icon-chat" @click="addContact()"><i class="fa-solid fa-pen-to-square"></i></span>
                                     <span class="icon icon-chat"><i class="fa-solid fa-sliders"></i></span>
                                 </div>
                             </div>
                             <div class="input-group d-flex">
                                 <div class="border rounded-start-2 px-3 icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                                <input class="border border-start-0 rounded-end-2 px-2" type="text" placeholder="Cerca o inizia una nuova chat">
+                                <input v-model="searchText" @keyUp="contactsFilter()" class="border border-start-0 rounded-end-2 px-2" type="text" placeholder="Cerca o inizia una nuova chat">
                             </div>
                         </div>
                         <div class="contact-list py-2">
-                            <div v-for="(contact, index) in contacts" class="contact d-flex justify-content-between p-2">
+                            <div v-for="(contact, index) in contacts" v-show="contact.visible" class="contact p-2">
                                 <div @click="userActive = index" class="d-flex w-100 justify-content-between">
                                     <div class="d-flex gap-2">
                                         <div class="chat-avatar">
-                                            <img :src="contact.avatar" alt="">
+                                            <img :src="contact.avatar">
                                         </div>
                                         <div>
                                             <h5 class="fs-6 fw-bold">{{ contact.name }}</h5>
@@ -123,9 +123,20 @@
                             </div>
                         </div>
                         <div class="chat-box d-flex flex-column px-5 py-3">
-                            <div class="chat d-flex flex-column bubble-message mb-2" v-for="message in contacts[userActive].messages" :class="message.status">
-                                <div class="message-text">{{ message.message }}</div>
-                                <div class="message-date align-self-end">{{ message.date }}</div>
+                            <div class="chat d-flex gap-2 bubble-message mb-2" v-for="(message, messageIndex) in contacts[userActive].messages" :class="message.status">
+                                <div class="d-flex flex-column">
+                                    <div class="message-text">{{ message.message }}</div>
+                                    <div class="message-date align-self-end">{{ message.date }}</div>
+                                </div>
+                                <div class="dropdown">
+                                    <button type="button" class="arrow btn p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Message info</a></li>
+                                        <li><a @click="deleteMessage(messageIndex)" class="dropdown-item" href="#">Delete Message</a></li>
+                                      </ul>                                    
+                                </div>
                             </div>
                         </div>
                         <div class="message-bar d-flex gap-1 align-items-center px-2">

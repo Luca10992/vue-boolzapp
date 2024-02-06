@@ -180,21 +180,38 @@ const app = createApp ({
             const newMessage = { ...this.newMessage };
             newMessage.date = this.currentTime();
             this.contacts[this.userActive].messages.push(newMessage);
-
+            this.newMessage = "";
             setTimeout(this.receiveResponse, 1000)
         },
 
         currentTime() {
             const now = new Date();
-            return `${now.getHours()}:${now.getMinutes()}`;
+            const day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+            const month = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getDate() + 1;
+            const hours = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+            const minutes = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+            return `${day}/${month}/${now.getFullYear()} ${hours}:${minutes}`;
         },
         
         receiveResponse() {
             const newResponse = { ...this.newResponse };
             newResponse.date = this.currentTime();
             this.contacts[this.userActive].messages.push(newResponse);
-        }
+        },
+
+        contactsFilter() {
+            this.searchText;
+            this.contacts.forEach((contact) => {
+                contact.visible = false;
+                if (contact.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                    contact.visible = true;
+                }
+            })
+        },
+
+        deleteMessage(messageIndex) {
+            this.contacts[this.userActive].messages.splice(messageIndex, 1);
+        },
     }
-    
 })
 .mount('#app');

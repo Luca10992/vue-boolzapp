@@ -127,6 +127,11 @@
     overflow-y: auto;
 }
 
+.contact {
+    display: flex;
+    justify-content: space-between;
+}
+
 .contact:hover {
     background-color: var(--header-color);
     border-radius: 10px;
@@ -176,6 +181,16 @@
     padding: 10px 20px;
     border-radius: 15px;
     word-wrap: break-word;
+}
+
+.arrow {
+    color: #b6b6b6;
+    font-size: 12px;
+    border: 0px;
+}
+
+.dropdown-menu {
+  background-color: rgb(240, 240, 240)
 }
 
 .sent {
